@@ -1,7 +1,16 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+require 'net/http'
+require 'json'
+Course.destroy_all
+
+url = 'https://www.udacity.com/public-api/v0/courses'
+response = Net::HTTP.get(URI.parse(url))
+parsed_data = JSON.parse(response, symbolize_names: true)
+
+parsed_data[:courses].each do |course|
+  data = {}
+  data[:title] = course[:title]
+  data[:level] = course[:level]
+  data[:expected_learning] = course[:expected_learning]
+
+  Course.create(data)
+end

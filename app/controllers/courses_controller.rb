@@ -1,5 +1,5 @@
 class CoursesController < ApplicationController
-  def courses
-    render json: {greeting: "Hello"}
+  def index
+    render json: Course.all
   end
 end
