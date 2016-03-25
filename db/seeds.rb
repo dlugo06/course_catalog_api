@@ -11,6 +11,7 @@ parsed_data[:courses].each do |course|
   data[:title] = course[:title]
   data[:level] = course[:level]
   data[:expected_learning] = course[:expected_learning]
+  data[:course_key] = course[:key]
 
   Course.create(data)
 end
